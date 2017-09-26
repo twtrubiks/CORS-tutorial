@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+
+<img src="https://raw.githubusercontent.com/twtrubiks/django-shop-tutorial/master/shop/static/img/no_image.png">
+<script>
+    // ajax
+    var url = 'http://127.0.0.1:8000/api/music/1/';
+    $.ajax({
+        url: url,
+        method: 'GET'
+    }).success(function (data, textStatus, jqXHR) {
+        console.log('success');
+        console.log(data);
+    }).error(function (jqXHR, textStatus, errorThrown) {
+        console.log('failed');
+        console.log(jqXHR)
+    });
+
+    // ajax use jsonp dataType
+    var url_jsonp = 'http://127.0.0.1:8000/api/music/all_singer/';
+    $.ajax({
+        url: url_jsonp,
+        type: "GET",
+        dataType: "jsonp",
+        jsonp: "callback",
+        jsonpCallback: "callback",
+        success: function (data) {
+            var result = JSON.stringify(data);
+            console.log(result);
+        }
+    });
+
+    // ajax backed add Response Header: Access-Control-Allow-Origin
+    var url_view = 'http://127.0.0.1:8000/api/music/1/detail/';
+    $.ajax({
+        url: url_view,
+        method: 'GET'
+    }).success(function (data, textStatus, jqXHR) {
+        console.log('success');
+        console.log(data);
+    }).error(function (jqXHR, textStatus, errorThrown) {
+        console.log('failed');
+        console.log(jqXHR)
+    });
+
+</script>
+</body>
+</html>

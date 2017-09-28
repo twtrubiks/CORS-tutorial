@@ -230,9 +230,11 @@ CORS 的原理，我們先從下面兩張圖來看
 
 當透過  XMLHttpRequest ( XHR ) 發送 request 時，browser 會在請求中加入一個 Origin，
 
-然後檢查 Origin 是否通過，如果接受，就可以得到資料，並且 response header 裡會多上
+然後檢查 Origin 是否通過，如果接受，就可以得到資料，並且 response header 裡會包含
 
-`Access-Control-Allow-Origin: *`，否則會被檔下來。
+`Access-Control-Allow-Origin: *` ; 反之，如果不通過，就會被檔下來，並且 response header
+
+裡 **不會** 包含 `Access-Control-Allow-Origin`。
 
 說穿了，其實在 Server 的 response header 中，加入 `Access-Control-Allow-Origin: *` 就可以支持 CORS
 

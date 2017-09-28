@@ -119,6 +119,16 @@ Same-Origin Policy 又稱 **同源政策**
 
 發起 Ajax request 時，就會發生跨域的問題，原因就是因為 Same-Origin Policy。
 
+溫馨小提醒  :kissing_heart:
+
+這邊提醒大家一點，儘管你看到 ERROR，但前端發的 Request 還是有送出去的，而
+
+且 browser 也有收到 Response（ 可用 browser 開發人員工具觀看，你會發現有正常的
+
+ Response ），但為什麼會 ERROR 呢 ？原因是 browser 因為同源政策的關係，不會把
+ 
+ 結果傳給你的 js ( 擋掉 )。
+
 ### JSONP
 
 JSONP 是跨域的一種方法，但不推薦，原因後面會解釋。JSONP 的全名為 JSON with Padding，
@@ -393,6 +403,40 @@ CORS_ORIGIN_WHITELIST = (
 CORS 的優點，簡單方便，也不用特別去改變後端的程式，像 JSONP 就真的小麻煩:expressionless:，而且 CORS 也支援
 
 POST Method，唯一的缺點可能就是有些瀏覽器不支援，但我相信這會慢慢改善，別再用 IE 7，IE 8 了 :angry:
+
+## 簡單請求（simple requests）
+
+需滿足以下**所有條件**則稱為 簡單請求
+
+* 允許的 HTTP Method為 `GET`，`HEAD`，`POST`
+
+* `Content-Type` 只能是 `application/x-www-form-urlencoded`，`multipart/form-data`，`text/plain` 其中一種。
+
+由於簡單請求的定義非常細，在這邊就點到為止，剩下的就留給大家 google :joy:
+
+## 預檢請求 preflight request
+
+當 browser 發起跨域請求時，會先通過 `OPTIONS` 方法詢問 Server 對跨域請求的
+
+支持狀況，如果預檢請求沒通過，真的 Request 也就不會發送，這就是預檢請求的
+
+目的。如要觸發 CORS 預檢請求 ，則必須符合**非**簡單請求。
+
+ 也因為這個原因，有時候你會發現明明就只送出一個 Request，不過從開發人員工具
+ 
+ 看卻發現有兩個 Request，並且其中一個 Request 是 OPTIONS 方法，這就是預檢請求。
+
+最簡單的概念是你發送一個 DELETE `http://127.0.0.1:8000/api/music/1/`
+
+跨域成功：會發現送出一個 OPTIONS 方法 ( 預檢請求通過 ) 以及一個 DELETE 方法。
+
+跨域失敗：會發現只送出一個 OPTIONS 方法 ( 預檢請求沒通過 )，後續的 DELETE 方法 請求也就沒送出了。
+
+想想如果今天沒有 preflight request 會發生什麼事情，跨域雖然失敗，但是 Server 還是有
+
+收到這個訊息，所以還是將資料刪除，天啊，這多麼可怕 :scream:
+
+由於預檢請求的定義也非常細，在這邊和大家說觀念，剩下的就留給大家 google :joy:
 
 ## 後記
 

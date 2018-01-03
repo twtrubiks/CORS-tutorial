@@ -126,7 +126,7 @@ Same-Origin Policy 又稱 **同源政策**
 且 browser 也有收到 Response（ 可用 browser 開發人員工具觀看，你會發現有正常的
 
  Response ），但為什麼會 ERROR 呢 ？原因是 browser 因為同源政策的關係，不會把
- 
+
  結果傳給你的 js ( 擋掉 )。
 
 ### JSONP
@@ -423,7 +423,7 @@ POST Method，唯一的缺點可能就是有些瀏覽器不支援，但我相信
 目的。如要觸發 CORS 預檢請求 ，則必須符合**非**簡單請求。
 
  也因為這個原因，有時候你會發現明明就只送出一個 Request，不過從開發人員工具
- 
+
  看卻發現有兩個 Request，並且其中一個 Request 是 OPTIONS 方法，這就是預檢請求。
 
 最簡單的概念是你發送一個 DELETE `http://127.0.0.1:8000/api/music/1/`
@@ -448,9 +448,7 @@ POST Method，唯一的缺點可能就是有些瀏覽器不支援，但我相信
 
 再從實作面下去解決，相信會更能增加大家對他的了解。
 
-其實還有一個東西也可以介紹，稱為 CSRF ( Cross Site Request Forgery )，但這次就暫時先不介紹，大家
-
-有興趣的話，可以先看 [Same-Origin Policy, CORS and CSRF](https://hackmd.io/s/H1cY3TTYe#same-origin-policy-cors-and-csrf) 壓壓驚，下次有機會我再整理給大家:smile:
+如果覺得意猶未盡，可以再了解一下 [Use Django To Introduce CSRF and Cookies , Session 📝](https://github.com/twtrubiks/CSRF-tutorial):smile:
 
 最後，因為文章內容很多是我去網路上查資料，自己再加以整理的，如果有介紹不清楚或有錯誤的地方，
 
